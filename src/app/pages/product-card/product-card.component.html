@@ -1,0 +1,53 @@
+<div class="card shadow-sm border-none" style="position: relative;">
+    <!-- Offer Badge -->
+     @if (product.isOffer) {
+        <div class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong" 
+        style="width: 35px; height: 35px; position: absolute; right: 0;">
+     <p class="text-white mb-0 small">Offer</p>
+   </div>
+     }
+ 
+    
+    <!-- Discount Badge -->
+    <div [class]="product.availableQty == 0 ? 'bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong' : 'bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong'" 
+         style="width: 35px; height: 35px; position: absolute; left: 0;">
+      <span class="fw-bold">{{product.availableQty}}</span>
+    </div>
+  
+    <!-- Product Image -->
+    <img [src]="product.imageUrl" 
+         class="card-img-top" alt="Laptop">
+  
+    <!-- Card Body -->
+    <div class="card-body p-2">
+      <!-- Category and Price -->
+      <div class="d-flex justify-content-between">
+        <p class="small">
+          <a href="#" class="text-muted">{{product.category}}</a>
+        </p>
+        <p class="small text-danger">${{product.price}}</p>
+      </div>
+  
+      <!-- Product Name and Discounted Price -->
+      <div class="d-flex justify-content-between mb-3">
+        <h5 class="mb-0">{{product.productName}}</h5>
+        <h5 class="text-dark mb-0">$ {{getDiscountedPrice(product)}}</h5>
+      </div>
+      <div class="d-flex justify-content-between mb-0">
+        <div class="text-warning">
+            <i [class]="product.rating > 0 ? 'fa fa-star' : 'fa-regular fa-star'"></i>
+            <i [class]="product.rating > 1 ? 'fa fa-star' : 'fa fa-star-o'"></i>
+            <i [class]="product.rating > 2 ? 'fa fa-star' : 'fa fa-star-o'"></i>
+            <i [class]="product.rating > 3 ? 'fa fa-star' : 'fa fa-star-o'"></i>
+            <i [class]="product.rating > 4 ? 'fa fa-star' : 'fa fa-star-o'"></i>
+        </div>
+        @if (product.availableQty == 0) {
+            <button type="button" class="btn btn-outline-secondary">Out of Stock</button> 
+        } @else {
+            <button type="button" class="btn btn-outline-success" (click)="AddToCart(product)">Buy Now</button>
+        }
+      </div>
+
+    </div>
+  </div>
+  

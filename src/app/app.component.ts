@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ProductService } from './pages/service/product.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,19 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'addToCart';
+  productService = inject(ProductService)
+  isCartVisible:boolean=false;
+  cartItems:any [] = [];
+  constructor () {
+    this.productService.onAddToCart$.subscribe((res:any)=>{
+      this.cartItems.unshift(res)
+
+    })
+  }
+  showCart(){
+    this.isCartVisible = !this.isCartVisible
+  }
+  removeproduct(index:number){
+    this.cartItems.splice(index,1)
+  }
 }
